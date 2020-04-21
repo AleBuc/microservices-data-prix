@@ -43,8 +43,8 @@ public class PriceServiceImpl implements PriceService {
     }
 
     @Override
-    public Mono<Price> delete(long id) {
-        return priceRepository.delete(id);
+    public Mono<Void> delete(String id) {
+        return priceRepository.deleteById(id);
     }
 
 }

@@ -16,6 +16,6 @@ public interface PriceService {
 
     public Flux<Price> findActivatedByDate(Date date);
 
-    Mono<Price> delete(long id);
+    Mono<Void> delete(String id);
 
 }
