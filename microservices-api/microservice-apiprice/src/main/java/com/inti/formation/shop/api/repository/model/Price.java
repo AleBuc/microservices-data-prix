@@ -9,6 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 
 import java.io.Serializable;
+import java.util.Date; //le .java a été importé, et non le sql
 
 
 /**
@@ -33,6 +34,6 @@ public class Price implements Serializable {
     private float montant;
     private boolean active;
     private String code;
-    private String date;
+    private Date date;
 
 }
