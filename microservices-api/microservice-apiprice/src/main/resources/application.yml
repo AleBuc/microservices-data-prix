@@ -1,11 +1,11 @@
 spring:
-  port: 0
+  port: 8085
   application:
-    name: spring-rective-mongoapi
+    name: microservice-apiprice
 
   data:
     mongodb:
       uri: mongodb://localhost:27017,localhost:27017
-      database: testdb
+      database: dbprice
       repositories:
         enabled: true
