@@ -1,23 +1,18 @@
 package com.inti.formation.shop.api;
 
 
-
-import com.inti.formation.shop.api.repository.model.Customer;
 import com.inti.formation.shop.api.repository.model.Price;
-import com.inti.formation.shop.api.rest.bean.CustomerRequest;
 import com.inti.formation.shop.api.rest.bean.PriceRequest;
 import com.inti.formation.shop.api.rest.exception.InternalServerException;
 import com.inti.formation.shop.api.rest.exception.ValidationParameterException;
-import com.inti.formation.shop.api.service.CustomerService;
 import com.inti.formation.shop.api.service.PriceService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
-
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Flux;
@@ -75,7 +70,7 @@ public class Endpoint {
 
     @GetMapping
     @RequestMapping(value = "/prices")
-    public Flux<Price> getActivatedPricesByDate(@RequestParam(name = "date") Date date ) {
+    public Flux<Price> getActivatedPricesByDate(@RequestParam(name = "date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date date ) {
         log.info("Searching  {} ",date );
         return priceService.findActivatedByDate(date)
 
@@ -86,7 +81,7 @@ public class Endpoint {
     }
 
     @PutMapping(value = "/update" , headers = "Accept=application/json; charset=utf-8")
-    @ResponseStatus( value  = HttpStatus.CREATED, reason="Price is updated" )
+    @ResponseStatus( value  = HttpStatus.OK, reason="Price is updated" )
     public Mono<String> update(@RequestBody PriceRequest price) {
         // Vérification des paramètres
         if( ObjectUtils.anyNotNull(price)  && !ObjectUtils.allNotNull(price.getIdPrix(),price.getMontant(), price.getCode(), price.getDate() )){
@@ -98,7 +93,7 @@ public class Endpoint {
     }
 
     @DeleteMapping(value="/delete", headers = "Accept=application/json; cherset=utf-8")
-    @ResponseStatus(value = HttpStatus.CREATED, reason = "This price is deleted")
+    @ResponseStatus(value = HttpStatus.OK, reason = "This price is deleted")
     public Mono<Void> delete(@RequestParam(name = "id") String id) {
         return priceService.delete(id).doOnNext(price -> log.info("Price " + id + " is deleted"));
     }
