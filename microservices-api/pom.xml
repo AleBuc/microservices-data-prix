@@ -12,7 +12,6 @@
     <artifactId>microservices-api</artifactId>
     <modules>
          <module>spring-reactive-mongoapi</module>
-         <module>spring-reactive-mongoapi-shop</module>
   </modules>
 
     <dependencies>
