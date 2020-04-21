@@ -9,8 +9,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.util.Date;
-
-import static java.util.stream.Collectors.joining;
+import java.util.Objects;
 /**
  * @author Sylvanius Kouandongui
  */
@@ -38,13 +37,19 @@ public class PriceServiceImpl implements PriceService {
     }
 
     @Override
+    public Mono<Price> findByIdPrix(long id) {
+        return priceRepository.findByIdPrix(id);
+    }
+
+    @Override
     public Flux<Price> findActivatedByDate(Date date) {
         return priceRepository.findActivatedByDate(date);
     }
 
     @Override
-    public Mono<Void> delete(String id) {
-        return priceRepository.deleteById(id);
+    public Mono<Price> delete(String id) {
+        System.out.println(priceRepository.findByIdPrix(Long.parseLong(id)));
+        return this.priceRepository.findByIdPrix(Long.parseLong(id)).flatMap(p -> this.priceRepository.delete(p).thenReturn(p));
     }
 
 }

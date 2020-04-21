@@ -94,8 +94,8 @@ public class Endpoint {
 
     @DeleteMapping(value="/delete", headers = "Accept=application/json; cherset=utf-8")
     @ResponseStatus(value = HttpStatus.OK, reason = "This price is deleted")
-    public Mono<Void> delete(@RequestParam(name = "id") String id) {
-        return priceService.delete(id).doOnNext(price -> log.info("Price " + id + " is deleted"));
+    public Mono<Price> delete(@RequestParam(name = "id") String id) {
+        return priceService.delete(id);
     }
 
 }

@@ -10,12 +10,14 @@ public interface PriceService {
 
     Mono<Price> register(Price price);
 
-    public Flux<Price> getPrices();
+    Flux<Price> getPrices();
 
-    public Mono<Price> update(Price price);
+    Mono<Price> update(Price price);
 
-    public Flux<Price> findActivatedByDate(Date date);
+    Flux<Price> findActivatedByDate(Date date);
 
-    Mono<Void> delete(String id);
+    Mono<Price> findByIdPrix(long id);
+
+    Mono<Price> delete(String id);
 
 }

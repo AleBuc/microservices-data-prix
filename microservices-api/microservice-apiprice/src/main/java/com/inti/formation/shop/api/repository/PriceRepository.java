@@ -24,5 +24,7 @@ public interface PriceRepository extends ReactiveMongoRepository<Price, String> 
  //   @DeleteQuery("{ 'idPrix' : ?0 }")
  //   Mono<Price> delete (long id);
 
+    @Query("{ '_id' : ?0 }")
+    Mono<Price> findByIdPrix (final long Id);
 
 }
