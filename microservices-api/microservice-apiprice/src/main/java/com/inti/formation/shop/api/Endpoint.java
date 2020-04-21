@@ -3,10 +3,13 @@ package com.inti.formation.shop.api;
 
 
 import com.inti.formation.shop.api.repository.model.Customer;
+import com.inti.formation.shop.api.repository.model.Price;
 import com.inti.formation.shop.api.rest.bean.CustomerRequest;
+import com.inti.formation.shop.api.rest.bean.PriceRequest;
 import com.inti.formation.shop.api.rest.exception.InternalServerException;
 import com.inti.formation.shop.api.rest.exception.ValidationParameterException;
 import com.inti.formation.shop.api.service.CustomerService;
+import com.inti.formation.shop.api.service.PriceService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
@@ -20,6 +23,8 @@ import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.Date;
+
 import static org.springframework.http.ResponseEntity.badRequest;
 import static org.springframework.http.ResponseEntity.status;
 
@@ -29,10 +34,11 @@ import static org.springframework.http.ResponseEntity.status;
 @RequiredArgsConstructor
 @RequestMapping(value = "/v1/shop")
 @Slf4j
-// Controller , Roote
 public class Endpoint {
+
     @Autowired
-    CustomerService customerService;
+    PriceService priceService;
+
 
     @ExceptionHandler(ValidationParameterException.class)
     public Mono<ResponseEntity<String>> handlerValidationParameterException(ValidationParameterException e) {
@@ -46,45 +52,56 @@ public class Endpoint {
     }
 
     @PostMapping(value = "/register" , headers = "Accept=application/json; charset=utf-8")
-    @ResponseStatus( value  = HttpStatus.CREATED, reason="Customer is registered" )
-    public Mono<String> create(@RequestBody CustomerRequest customer) {
+    @ResponseStatus( value  = HttpStatus.CREATED, reason="Price is registered" )
+    public Mono<String> create(@RequestBody PriceRequest price) {
         // Vérification des paramètres
-        if( ObjectUtils.anyNotNull(customer)  && !ObjectUtils.allNotNull(customer.getEmail(),customer.getName(), customer.getFirstname() )){
+        if( ObjectUtils.anyNotNull(price)  && !ObjectUtils.allNotNull(price.getIdPrix(),price.getMontant(), price.getCode(), price.getDate() )){
             log.error("Validation error: one of attributes is not found");
             return Mono.error(new ValidationParameterException("(Validation error message): one of attributes is not found" ));
         }
-        return Mono.just(customer)
-        .map(data->
-                {
-
-                    return customerService.register( data).subscribe().toString();
-
-                });
+        return Mono.just(price)
+        .map(data-> priceService.register( data).subscribe().toString());
     }
 
     @GetMapping
-    @RequestMapping(value = "/customers{customername}")
-
-    public Flux<Customer> getCustomers(@RequestParam(required = true, name = "customername") String customername ) {
-        log.info("Searching  {} ",customername );
-        return customerService.searchName(customername)
-
-                // uses of doNext
-
-                .doOnNext(customer -> log.info(customer.getEmail()+ " is found"));
-
-    }
-
-
-
-    @GetMapping
-    @RequestMapping(value = "/customers/")
-    public Flux<Customer> getCustomers() {
-        log.info("All customers searching");
-      return customerService.getCustomers()
-              // uses of map
+    @RequestMapping(value = "/prices/")
+    public Flux<Price> getPrices() {
+        log.info("All prices searching");
+        return priceService.getPrices()
+                // uses of map
                 .switchIfEmpty(Flux.error(new ResponseStatusException(HttpStatus.NOT_FOUND)))
                 .map( data-> data);
     }
+
+    @GetMapping
+    @RequestMapping(value = "/prices")
+    public Flux<Price> getActivatedPricesByDate(@RequestParam(name = "date") Date date ) {
+        log.info("Searching  {} ",date );
+        return priceService.findActivatedByDate(date)
+
+                // uses of doNext
+
+                .doOnNext(price -> log.info("Price " + price.getIdPrix()+ " is found"));
+
+    }
+
+    @PutMapping(value = "/update" , headers = "Accept=application/json; charset=utf-8")
+    @ResponseStatus( value  = HttpStatus.CREATED, reason="Price is updated" )
+    public Mono<String> update(@RequestBody PriceRequest price) {
+        // Vérification des paramètres
+        if( ObjectUtils.anyNotNull(price)  && !ObjectUtils.allNotNull(price.getIdPrix(),price.getMontant(), price.getCode(), price.getDate() )){
+            log.error("Validation error: one of attributes is not found");
+            return Mono.error(new ValidationParameterException("(Validation error message): one of attributes is not found" ));
+        }
+        return Mono.just(price)
+                .map(data-> priceService.update( data).subscribe().toString());
+    }
+
+    @DeleteMapping(value="/delete", headers = "Accept=application/json; cherset=utf-8")
+    @ResponseStatus(value = HttpStatus.CREATED, reason = "This price is deleted")
+    public Mono<Price> delete(@RequestParam(name = "id") long id) {
+        return priceService.delete(id).doOnNext(price -> log.info("Price " + id + " is deleted"));
+    }
+
 }
 

@@ -13,6 +13,11 @@ import java.util.Date;
 @Repository
 public interface PriceRepository extends ReactiveMongoRepository<Price, String> {
 
+    /**
+     * Retourne les prix actifs après une date donnée
+     * @param date    la date
+     * @return Prices activated after the Date
+     */
     @Query("{'$and':[ {'active': true}, {date': {$gte: ?0} ] }")
     Flux<Price> findActivatedByDate (final Date date);
 
