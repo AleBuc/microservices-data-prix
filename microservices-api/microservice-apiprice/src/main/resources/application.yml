@@ -1,11 +1,9 @@
 spring:
-  port: 8080
   application:
     name: microservice-apiprice
-
   data:
     mongodb:
       uri: mongodb://localhost:27017,localhost:27017
       database: dbprice
-      repositories:
-        enabled: true
+server:
+  port: 8085
