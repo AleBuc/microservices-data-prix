@@ -12,6 +12,9 @@
     <artifactId>microservice-apiprice</artifactId>
 
     <properties>
+        <microservices-common-libs-version>0.0.1-SNAPSHOT</microservices-common-libs-version>
+        <microservices-utils-version>0.0.1-SNAPSHOT</microservices-utils-version>
+        <jsoup-version>1.11.3</jsoup-version>
         <spring-boot-starterweb-version>2.2.5.RELEASE</spring-boot-starterweb-version>
         <spring-kafka-version>2.3.6.RELEASE</spring-kafka-version>
         <kafka-clients-version>2.3.1</kafka-clients-version>
@@ -19,6 +22,7 @@
         <kafka-streams-version>2.3.1</kafka-streams-version>
         <lombock-version>1.18.12</lombock-version>
     </properties>
+
 
     <dependencies>
 
@@ -30,13 +34,13 @@
         <dependency>
             <groupId>com.formation.data</groupId>
             <artifactId>microservices-utils</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${microservices-utils-version}</version>
         </dependency>
         
         <dependency>
             <groupId>com.formation.data</groupId>
             <artifactId>microservices-common-libs</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${microservices-common-libs-version}</version>
             <scope>compile</scope>
         </dependency>
 
