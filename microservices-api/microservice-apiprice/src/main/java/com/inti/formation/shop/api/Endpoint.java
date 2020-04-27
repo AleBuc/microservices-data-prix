@@ -9,10 +9,14 @@ import com.inti.formation.shop.api.service.PriceService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
+import org.apache.kafka.clients.producer.ProducerRecord;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Flux;
@@ -29,10 +33,20 @@ import static org.springframework.http.ResponseEntity.status;
 @RequiredArgsConstructor
 @RequestMapping(value = "/v1/shop")
 @Slf4j
+@Component
 public class Endpoint {
 
     @Autowired
     PriceService priceService;
+
+    @Autowired
+    private KafkaTemplate<String, Price> kafkaTemplate;
+
+    @Value("${kafka.topic-name}")
+    private String TOPIC;
+
+    @Value("${kafka.compression-type}")
+    private String compressionType;
 
 
     @ExceptionHandler(ValidationParameterException.class)
@@ -95,6 +109,14 @@ public class Endpoint {
     @DeleteMapping(value="/delete", headers = "Accept=application/json; cherset=utf-8")
     @ResponseStatus(value = HttpStatus.OK, reason = "This price is deleted")
     public Mono<Price> delete(@RequestParam(name = "id") String id) {
+         System.out.println("début delete");
+         System.out.println("topic name : "+TOPIC);
+         priceService.findByIdPrix(Long.parseLong(id)).map(prix -> {
+             ProducerRecord<String,Price> producerRecord = new ProducerRecord<>(TOPIC, Long.toString(prix.getIdPrix()), prix);
+             kafkaTemplate.send(producerRecord);
+             return Mono.just(prix);
+         }).subscribe();
+        System.out.println("commande Kafka terminée");
         return priceService.delete(id);
     }
 
