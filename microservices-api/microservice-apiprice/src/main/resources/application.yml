@@ -7,3 +7,19 @@ spring:
       database: dbprice
 server:
   port: 8085
+
+# kafka
+kafka:
+  bootstrap-server: localhost:29092 #bootstrap.servers=<BOOTSTRAP_SERVER>
+  acks: all
+  retries: 2  # retry=2147483647
+  batch-size: 131072
+  buffer-memory: 80000000
+  client-id: producerEvent
+  idempotence: true
+  compression-type: snappy
+  topic-name: price-v1
+  user: producer-user
+  password: producer-pwd
+  max-in-flight-requests-per-connection: 5
+  auto-register-schemas: false

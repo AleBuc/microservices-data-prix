@@ -6,6 +6,7 @@ import com.inti.formation.shop.api.rest.bean.PriceRequest;
 import com.inti.formation.shop.api.rest.exception.InternalServerException;
 import com.inti.formation.shop.api.rest.exception.ValidationParameterException;
 import com.inti.formation.shop.api.service.PriceService;
+import com.inti.formation.shop.api.producer.ProductBuilder;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
@@ -95,6 +96,7 @@ public class Endpoint {
     @DeleteMapping(value="/delete", headers = "Accept=application/json; cherset=utf-8")
     @ResponseStatus(value = HttpStatus.OK, reason = "This price is deleted")
     public Mono<Price> delete(@RequestParam(name = "id") String id) {
+        ProductBuilder.kafkaDeleteTopic(priceService.findByIdPrix(Long.parseLong(id)));
         return priceService.delete(id);
     }
 

@@ -11,6 +11,19 @@
     </parent>
     <artifactId>microservice-apiprice</artifactId>
 
+    <properties>
+        <microservices-common-libs-version>0.0.1-SNAPSHOT</microservices-common-libs-version>
+        <microservices-utils-version>0.0.1-SNAPSHOT</microservices-utils-version>
+        <jsoup-version>1.11.3</jsoup-version>
+        <spring-boot-starterweb-version>2.2.5.RELEASE</spring-boot-starterweb-version>
+        <spring-kafka-version>2.3.6.RELEASE</spring-kafka-version>
+        <kafka-clients-version>2.3.1</kafka-clients-version>
+        <slf4j-api-version>1.7.30</slf4j-api-version>
+        <kafka-streams-version>2.3.1</kafka-streams-version>
+        <lombock-version>1.18.12</lombock-version>
+    </properties>
+
+
     <dependencies>
 
         <dependency>
@@ -21,22 +34,57 @@
         <dependency>
             <groupId>com.formation.data</groupId>
             <artifactId>microservices-utils</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${microservices-utils-version}</version>
         </dependency>
         
         <dependency>
             <groupId>com.formation.data</groupId>
             <artifactId>microservices-common-libs</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${microservices-common-libs-version}</version>
             <scope>compile</scope>
         </dependency>
 
         <dependency>
             <groupId>org.jsoup</groupId>
             <artifactId>jsoup</artifactId>
-            <version>1.11.3</version>
+            <version>${jsoup-version}</version>
+        </dependency>
+        <!-- SPRING -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <version>${spring-boot-starterweb-version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka</artifactId>
+            <version>${spring-kafka-version}</version>
+        </dependency>
+        <!-- KAFKA -->
+        <dependency>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>kafka-clients</artifactId>
+            <version>${kafka-clients-version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j-api-version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>kafka-streams</artifactId>
+            <version>${kafka-streams-version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombock-version}</version>
+        </dependency>
 
 
     </dependencies>
