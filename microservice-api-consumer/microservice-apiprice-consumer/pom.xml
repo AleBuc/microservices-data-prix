@@ -46,6 +46,10 @@
             <artifactId>slf4j-api</artifactId>
             <version>${slf4j-api-version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-autoconfigure</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
