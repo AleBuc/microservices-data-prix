@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>microservice-api-consumer</artifactId>
+        <groupId>com.inti.formation.consumer</groupId>
+        <version>0.0.1-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.inti.formation.apiconsumer</groupId>
+    <artifactId>microservice-apiprice-consumer</artifactId>
+    <properties>
+        <microservices-common-libs-version>0.0.1-SNAPSHOT</microservices-common-libs-version>
+        <microservices-utils-version>0.0.1-SNAPSHOT</microservices-utils-version>
+        <jsoup-version>1.11.3</jsoup-version>
+        <spring-kafka-version>2.3.6.RELEASE</spring-kafka-version>
+        <slf4j-api-version>1.7.30</slf4j-api-version>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>com.formation.data</groupId>
+            <artifactId>microservices-utils</artifactId>
+            <version>${microservices-utils-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.formation.data</groupId>
+            <artifactId>microservices-common-libs</artifactId>
+            <version>${microservices-common-libs-version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>${jsoup-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka</artifactId>
+            <version>${spring-kafka-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j-api-version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>${project.artifactId}</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+            <!-- Build -->
+            <plugin>
+                <!--downgrade to fix https://issues.apache.org/jira/browse/SUREFIRE-1444 -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.19.1</version>
+            </plugin>
+            <!-- VERY VERY IMPORTANT RO RUN CONTAINER SPRING BOOT-->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>2.2.5.RELEASE</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <!-- @see http://docs.spring.io/spring-boot/docs/current-SNAPSHOT/reference/htmlsingle/#production-ready-customizing-endpoints
+                        : filter resources with @ delimiter -->
+                    <addResources>false</addResources>
+                    <finalName>${project.artifactId}</finalName>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
