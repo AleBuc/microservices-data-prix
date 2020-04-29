@@ -1,7 +1,10 @@
 package com.inti.formation.apiconsumer.message;
 
+import lombok.Data;
+
 import java.util.Date;
 
+@Data
 public class Price {
 
     private long idPrix;

@@ -1,6 +1,6 @@
 kafka:
   boot-server: localhost:29092
-  topic-name: product-v1
+  topic-name: price-v1
   consumer-group-id: microservice-apiprice-consumer-groupeId
   client-id: microservice-apiprice-consumer #important, c'est le nom du microservice
   # applicationId = client-id
