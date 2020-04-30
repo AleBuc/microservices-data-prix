@@ -23,6 +23,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.util.Date;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import static org.springframework.http.ResponseEntity.badRequest;
 import static org.springframework.http.ResponseEntity.status;
@@ -108,16 +109,13 @@ public class Endpoint {
 
     @DeleteMapping(value="/delete", headers = "Accept=application/json; cherset=utf-8")
     @ResponseStatus(value = HttpStatus.OK, reason = "This price is deleted")
-    public Mono<Price> delete(@RequestParam(name = "id") String id) {
-         System.out.println("début delete");
-         System.out.println("topic name : "+TOPIC);
-         priceService.findByIdPrix(Long.parseLong(id)).map(prix -> {
-             ProducerRecord<String,Price> producerRecord = new ProducerRecord<>(TOPIC, Long.toString(prix.getIdPrix()), prix);
-             kafkaTemplate.send(producerRecord);
-             return Mono.just(prix);
-         }).subscribe();
-        System.out.println("commande Kafka terminée");
-        return priceService.delete(id);
+    public void delete(@RequestParam(name = "id") String id) {
+        System.out.println("Delete de id "+ id);
+        priceService.findByIdPrix(Long.parseLong(id)).subscribe(prix -> {
+            priceService.delete(String.valueOf(prix.getIdPrix()));
+            ProducerRecord<String, Price> producerRecord = new ProducerRecord<>(TOPIC, Long.toString(prix.getIdPrix()), prix);
+            kafkaTemplate.send(producerRecord);
+        });
     }
 
 }

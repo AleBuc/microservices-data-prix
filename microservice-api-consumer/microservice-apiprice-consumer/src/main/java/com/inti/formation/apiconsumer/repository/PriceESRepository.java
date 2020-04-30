@@ -1,10 +1,10 @@
 package com.inti.formation.apiconsumer.repository;
 
-import com.inti.formation.apiconsumer.message.Price;
+import com.inti.formation.apiconsumer.model.Price;
 import org.springframework.data.elasticsearch.repository.ElasticsearchCrudRepository;
 import org.springframework.stereotype.Repository;
 
-@Repository
-public interface PriceRepository extends ElasticsearchCrudRepository<Price, Long> {
+@Repository("espricerepo")
+public interface PriceESRepository extends ElasticsearchCrudRepository<Price, Long> {
 
 }
