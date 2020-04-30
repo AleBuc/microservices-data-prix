@@ -1,5 +1,6 @@
 package com.inti.formation.shop.api;
 
+import com.inti.formation.shop.api.repository.model.KafkaPrice;
 import com.inti.formation.shop.api.repository.model.Price;
 import com.inti.formation.shop.api.serde.JsonPOJOSerializer;
 import org.apache.kafka.clients.producer.ProducerConfig;
@@ -14,7 +15,7 @@ import org.springframework.kafka.core.ProducerFactory;
 
 import java.util.HashMap;
 import java.util.Map;
-@Configuration
+
 public class KafkaConfiguration {
 
     @Value("${kafka.bootstrap-server}")
@@ -79,12 +80,12 @@ public class KafkaConfiguration {
 
     @Bean
     // <type de clé, type de donnée>
-    public ProducerFactory<String, Price> producerFactory() {
+    public ProducerFactory<String, KafkaPrice> producerFactory() {
         return new DefaultKafkaProducerFactory<>(producerConfigs());
     }
 
     @Bean
-    public KafkaTemplate<String, Price> kafkaTemplate() {
+    public KafkaTemplate<String, KafkaPrice> kafkaTemplate() {
         return new KafkaTemplate<>(producerFactory());
     }
 

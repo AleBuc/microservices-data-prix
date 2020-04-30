@@ -1,6 +1,7 @@
 package com.inti.formation.shop.api;
 
 
+import com.inti.formation.shop.api.repository.model.KafkaPrice;
 import com.inti.formation.shop.api.repository.model.Price;
 import com.inti.formation.shop.api.rest.bean.PriceRequest;
 import com.inti.formation.shop.api.rest.exception.InternalServerException;
@@ -11,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -22,6 +24,8 @@ import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -38,10 +42,11 @@ import static org.springframework.http.ResponseEntity.status;
 public class Endpoint {
 
     @Autowired
+    @Qualifier("priceserv")
     PriceService priceService;
 
     @Autowired
-    private KafkaTemplate<String, Price> kafkaTemplate;
+    private KafkaTemplate<String, KafkaPrice> kafkaTemplate;
 
     @Value("${kafka.topic-name}")
     private String TOPIC;
@@ -112,8 +117,16 @@ public class Endpoint {
     public void delete(@RequestParam(name = "id") String id) {
         System.out.println("Delete de id "+ id);
         priceService.findByIdPrix(Long.parseLong(id)).subscribe(prix -> {
-            priceService.delete(String.valueOf(prix.getIdPrix()));
-            ProducerRecord<String, Price> producerRecord = new ProducerRecord<>(TOPIC, Long.toString(prix.getIdPrix()), prix);
+            priceService.delete(id);
+            KafkaPrice kp = new KafkaPrice();
+            kp.setIdPrix(prix.getIdPrix());
+            kp.setMontant(prix.getMontant());
+            kp.setCode(prix.getCode());
+            kp.setActive(prix.isActive());
+            DateFormat df = new SimpleDateFormat(("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"));
+            kp.setDate(df.format(prix.getDate()));
+            kp.setDateSuppr(df.format(new Date()));
+            ProducerRecord<String, KafkaPrice> producerRecord = new ProducerRecord<>(TOPIC, Long.toString(kp.getIdPrix()), kp);
             kafkaTemplate.send(producerRecord);
         });
     }

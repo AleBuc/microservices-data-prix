@@ -10,7 +10,7 @@ import reactor.core.publisher.Mono;
 
 import java.util.Date;
 
-@Repository
+@Repository("pricerepo")
 public interface PriceRepository extends ReactiveMongoRepository<Price, String> {
 
     /**
