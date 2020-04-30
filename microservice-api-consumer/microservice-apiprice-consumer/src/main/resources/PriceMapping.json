@@ -1,0 +1,19 @@
+{
+  "properties": {
+    "active": {
+      "type": "boolean"
+    },
+    "code": {
+      "type": "keyword"
+    },
+    "date": {
+      "type": "date"
+    },
+    "idPrix": {
+      "type": "long"
+    },
+    "montant": {
+      "type": "float"
+    }
+  }
+}
