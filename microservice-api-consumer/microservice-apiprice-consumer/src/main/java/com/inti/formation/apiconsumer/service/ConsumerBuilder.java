@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
+
 @Service
 @Slf4j
 public class ConsumerBuilder {
@@ -21,7 +22,7 @@ public class ConsumerBuilder {
     public void consume(com.inti.formation.apiconsumer.message.Price price) {
         log.info("Event readed " + price.toString());
         Price esPrice = new Price();
-        esPrice.setIdPrix(price.getIdPrix());
+        esPrice.setIdPrix(String.valueOf(price.getIdPrix()));
         esPrice.setMontant(price.getMontant());
         esPrice.setCode(price.getCode());
         esPrice.setDate(price.getDate());

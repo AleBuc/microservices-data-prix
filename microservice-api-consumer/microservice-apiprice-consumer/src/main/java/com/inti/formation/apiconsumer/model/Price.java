@@ -8,13 +8,12 @@ import org.springframework.data.elasticsearch.annotations.FieldType;
 
 import java.util.Date;
 
-@Document(indexName = "price", type = "price")
+@Document(indexName = "price", type = "_doc")
 @Data
 public class Price {
 
     @Id
-    @Field(type = FieldType.Long)
-    private long idPrix;
+    private String idPrix;
     @Field(type = FieldType.Float)
     private float montant;
     @Field(type = FieldType.Boolean)
