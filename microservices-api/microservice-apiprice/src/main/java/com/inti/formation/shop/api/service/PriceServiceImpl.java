@@ -51,9 +51,10 @@ public class PriceServiceImpl implements PriceService {
     }
 
     @Override
-    public Mono<Void> delete(String id) {
-        return
-            priceRepository.deleteById(id);
-    }
+    public Mono<Price> delete(String id) { return priceRepository.findByIdPrix(Long.parseLong(id)).flatMap(price -> priceRepository.delete(price).thenReturn(price));}
+
+    @Override
+    public Mono<Void> deletePrice(Price price) { return priceRepository.delete(price); }
+
 
 }

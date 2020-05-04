@@ -18,7 +18,7 @@ kafka:
   client-id: producerEvent
   idempotence: true
   compression-type: snappy
-  topic-name: price-v1
+  topic-name: deleted-price-v1
   user: producer-user
   password: producer-pwd
   max-in-flight-requests-per-connection: 5

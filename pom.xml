@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.formation.data</groupId>
-    <artifactId>microservices-data</artifactId>
+    <artifactId>microservices-data-prix</artifactId>
     <packaging>pom</packaging>
     <version>0.0.1-SNAPSHOT</version>
 

@@ -23,10 +23,7 @@ import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.TimeZone;
 
 import static org.springframework.http.ResponseEntity.badRequest;
 import static org.springframework.http.ResponseEntity.status;
@@ -117,16 +114,12 @@ public class Endpoint {
         System.out.println("Delete de id "+ id);
         priceService.findByIdPrix(Long.parseLong(id)).subscribe(price ->
         {
-
-            priceService.delete(price.getIdPrix()+"" );
-
-            //DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
             price.setDateSuppr(new Date());
             ProducerRecord<String, Price> producerRecord = new ProducerRecord<>(TOPIC, Long.toString(price.getIdPrix()), price);
             kafkaTemplate.send(producerRecord);
         });
 
-        return null; //priceService.delete(id)
+        return priceService.delete(id);
     }
 
 }
