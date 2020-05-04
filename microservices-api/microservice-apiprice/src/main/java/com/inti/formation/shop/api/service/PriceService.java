@@ -18,6 +18,6 @@ public interface PriceService {
 
     Mono<Price> findByIdPrix(long id);
 
-    Mono<Price> delete(String id);
+    Mono<Void> delete(String id);
 
 }

@@ -1,6 +1,5 @@
 package com.inti.formation.shop.api;
 
-import com.inti.formation.shop.api.repository.model.KafkaPrice;
 import com.inti.formation.shop.api.repository.model.Price;
 import com.inti.formation.shop.api.serde.JsonPOJOSerializer;
 import org.apache.kafka.clients.producer.ProducerConfig;
@@ -8,7 +7,6 @@ import org.apache.kafka.common.serialization.StringSerializer;
 import org.apache.kafka.streams.StreamsConfig;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
@@ -80,12 +78,12 @@ public class KafkaConfiguration {
 
     @Bean
     // <type de clé, type de donnée>
-    public ProducerFactory<String, KafkaPrice> producerFactory() {
+    public ProducerFactory<String, Price> producerFactory() {
         return new DefaultKafkaProducerFactory<>(producerConfigs());
     }
 
     @Bean
-    public KafkaTemplate<String, KafkaPrice> kafkaTemplate() {
+    public KafkaTemplate<String, Price> kafkaTemplate() {
         return new KafkaTemplate<>(producerFactory());
     }
 

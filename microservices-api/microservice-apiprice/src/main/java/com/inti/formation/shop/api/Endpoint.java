@@ -1,7 +1,6 @@
 package com.inti.formation.shop.api;
 
 
-import com.inti.formation.shop.api.repository.model.KafkaPrice;
 import com.inti.formation.shop.api.repository.model.Price;
 import com.inti.formation.shop.api.rest.bean.PriceRequest;
 import com.inti.formation.shop.api.rest.exception.InternalServerException;
@@ -27,7 +26,7 @@ import reactor.core.publisher.Mono;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.TimeZone;
 
 import static org.springframework.http.ResponseEntity.badRequest;
 import static org.springframework.http.ResponseEntity.status;
@@ -46,7 +45,7 @@ public class Endpoint {
     PriceService priceService;
 
     @Autowired
-    private KafkaTemplate<String, KafkaPrice> kafkaTemplate;
+    private KafkaTemplate<String, Price> kafkaTemplate;
 
     @Value("${kafka.topic-name}")
     private String TOPIC;
@@ -112,23 +111,22 @@ public class Endpoint {
                 .map(data-> priceService.update( data).subscribe().toString());
     }
 
-    @DeleteMapping(value="/delete", headers = "Accept=application/json; cherset=utf-8")
+    @DeleteMapping(value="/delete", headers = "Accept=application/json; charset=utf-8")
     @ResponseStatus(value = HttpStatus.OK, reason = "This price is deleted")
-    public void delete(@RequestParam(name = "id") String id) {
+    public Mono<Price> delete(@RequestParam(name = "id") String id) {
         System.out.println("Delete de id "+ id);
-        priceService.findByIdPrix(Long.parseLong(id)).subscribe(prix -> {
-            priceService.delete(id);
-            KafkaPrice kp = new KafkaPrice();
-            kp.setIdPrix(prix.getIdPrix());
-            kp.setMontant(prix.getMontant());
-            kp.setCode(prix.getCode());
-            kp.setActive(prix.isActive());
-            DateFormat df = new SimpleDateFormat(("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"));
-            kp.setDate(df.format(prix.getDate()));
-            kp.setDateSuppr(df.format(new Date()));
-            ProducerRecord<String, KafkaPrice> producerRecord = new ProducerRecord<>(TOPIC, Long.toString(kp.getIdPrix()), kp);
+        priceService.findByIdPrix(Long.parseLong(id)).subscribe(price ->
+        {
+
+            priceService.delete(price.getIdPrix()+"" );
+
+            //DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+            price.setDateSuppr(new Date());
+            ProducerRecord<String, Price> producerRecord = new ProducerRecord<>(TOPIC, Long.toString(price.getIdPrix()), price);
             kafkaTemplate.send(producerRecord);
         });
+
+        return null; //priceService.delete(id)
     }
 
 }

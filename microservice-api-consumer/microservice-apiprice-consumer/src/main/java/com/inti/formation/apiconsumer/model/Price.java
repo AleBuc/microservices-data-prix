@@ -22,5 +22,7 @@ public class Price {
     private String code;
     @Field(type = FieldType.Date)
     private Date date;
+    @Field(type = FieldType.Date)
+    private Date dateSuppr;
 
 }
