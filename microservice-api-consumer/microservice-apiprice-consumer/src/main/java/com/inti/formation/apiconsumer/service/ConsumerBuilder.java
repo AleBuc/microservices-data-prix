@@ -26,6 +26,7 @@ public class ConsumerBuilder {
         esPrice.setMontant(price.getMontant());
         esPrice.setCode(price.getCode());
         esPrice.setDate(price.getDate());
+        esPrice.setDateSuppr(price.getDateSuppr());
         esPrice.setActive(price.isActive());
 
         esrepo.save(esPrice);
