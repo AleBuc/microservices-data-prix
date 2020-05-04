@@ -13,7 +13,8 @@ import java.util.Date; //le .java a été importé, et non le sql
 
 
 /**
- * @author Vianney
+ * @author CestVianney
+ * @author AlexandreBuc
  */
 
 @Data

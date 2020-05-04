@@ -6,6 +6,10 @@ import reactor.core.publisher.Mono;
 
 import java.util.Date;
 
+/**
+ * @author CestVianney
+ * @author AlexandreBuc
+ */
 public interface PriceService {
 
     Mono<Price> register(Price price);

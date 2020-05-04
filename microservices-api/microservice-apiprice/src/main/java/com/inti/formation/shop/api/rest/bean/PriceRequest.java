@@ -5,9 +5,9 @@ import lombok.Data;
 import com.inti.formation.shop.api.repository.model.Price;
 
 /**
- * @author Alexandre Bucamp
+ * @author CestVianney
+ * @author AlexandreBuc
  */
-
 @Data
 public class PriceRequest extends Price{
 }

@@ -8,7 +8,10 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
-
+/**
+ * @author CestVianney
+ * @author AlexandreBuc
+ */
 @Service
 @Slf4j
 public class ConsumerBuilder {

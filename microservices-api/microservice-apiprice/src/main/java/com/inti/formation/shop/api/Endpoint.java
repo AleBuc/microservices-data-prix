@@ -29,7 +29,10 @@ import static org.springframework.http.ResponseEntity.badRequest;
 import static org.springframework.http.ResponseEntity.status;
 
 
-
+/**
+ * @author CestVianney
+ * @author AlexandreBuc
+ */
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(value = "/v1/shop")

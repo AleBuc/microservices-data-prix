@@ -8,6 +8,10 @@ import org.springframework.data.elasticsearch.annotations.FieldType;
 
 import java.util.Date;
 
+/**
+ * @author CestVianney
+ * @author AlexandreBuc
+ */
 @Document(indexName = "price", type = "_doc")
 @Data
 public class Price {

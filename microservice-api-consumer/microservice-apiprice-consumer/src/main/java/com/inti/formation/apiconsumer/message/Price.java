@@ -4,6 +4,10 @@ import lombok.Data;
 
 import java.util.Date;
 
+/**
+ * @author CestVianney
+ * @author AlexandreBuc
+ */
 @Data
 public class Price {
 

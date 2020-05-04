@@ -12,8 +12,10 @@ import reactor.core.publisher.Mono;
 
 import java.util.Date;
 import java.util.Objects;
+
 /**
- * @author Sylvanius Kouandongui
+ * @author CestVianney
+ * @author AlexandreBuc
  */
 
 @Component

@@ -6,6 +6,10 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.mongodb.repository.config.EnableReactiveMongoRepositories;
 
+/**
+ * @author CestVianney
+ * @author AlexandreBuc
+ */
 @SpringBootConfiguration
 @EnableAutoConfiguration
 @ComponentScan
