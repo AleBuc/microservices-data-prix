@@ -23,3 +23,12 @@ kafka:
   password: producer-pwd
   max-in-flight-requests-per-connection: 5
   auto-register-schemas: false
+
+camel:
+  springboot:
+    name: formation-apache-camel
+
+in:
+  directory: /home/alex/Documents/formation/talend/dossier_JSON/
+  file:
+    filemask: .*.[json|JSON]
