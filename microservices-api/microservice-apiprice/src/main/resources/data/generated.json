@@ -1,0 +1,72 @@
+[
+  {
+    "idPrix": 1,
+    "montant": 94.46,
+    "active": false,
+    "code": "ZUAL",
+    "date": "2017-02-18T01:38:10.622-01:00"
+  },
+  {
+    "idPrix": 2,
+    "montant": 922.09,
+    "active": true,
+    "code": "AGMO",
+    "date": "2018-02-08T12:48:50.071-01:00"
+  },
+  {
+    "idPrix": 3,
+    "montant": 202.77,
+    "active": false,
+    "code": "WVZX",
+    "date": "2018-03-14T12:14:41.185-01:00"
+  },
+  {
+    "idPrix": 4,
+    "montant": 213.33,
+    "active": true,
+    "code": "HXTP",
+    "date": "2016-04-15T04:56:48.928-02:00"
+  },
+  {
+    "idPrix": 5,
+    "montant": 302.83,
+    "active": true,
+    "code": "RPIC",
+    "date": "2018-07-15T01:54:58.016-02:00"
+  },
+  {
+    "idPrix": 6,
+    "montant": 100.86,
+    "active": true,
+    "code": "UFUQ",
+    "date": "2015-06-04T01:36:17.226-02:00"
+  },
+  {
+    "idPrix": 7,
+    "montant": 90.64,
+    "active": false,
+    "code": "XDSH",
+    "date": "2016-01-05T12:56:31.322-01:00"
+  },
+  {
+    "idPrix": 8,
+    "montant": 467.97,
+    "active": true,
+    "code": "WOJO",
+    "date": "2017-01-10T01:25:39.667-01:00"
+  },
+  {
+    "idPrix": 9,
+    "montant": 566.31,
+    "active": false,
+    "code": "KIQJ",
+    "date": "2019-03-03T03:05:18.660-01:00"
+  },
+  {
+    "idPrix": 10,
+    "montant": 436.3,
+    "active": true,
+    "code": "EXAI",
+    "date": "2015-09-03T09:41:01.171-02:00"
+  }
+]

@@ -13,6 +13,5 @@ public class PriceInput {
     private boolean active;
     private String code;
     private Date date;
-    private Date dateSuppr;
 
 }

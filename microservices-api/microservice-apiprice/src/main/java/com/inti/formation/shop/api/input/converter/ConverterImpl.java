@@ -19,7 +19,7 @@ public class ConverterImpl implements Converter {
         price.setActive(p.isActive());
         price.setCode(p.getCode());
         price.setDate(p.getDate());
-        price.setDateSuppr(p.getDateSuppr());
+        price.setDateSuppr(price.getDateSuppr());
 
         return price;
     }

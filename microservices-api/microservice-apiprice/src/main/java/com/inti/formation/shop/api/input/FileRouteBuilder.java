@@ -3,6 +3,7 @@ package com.inti.formation.shop.api.input;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.inti.formation.shop.api.input.converter.Converter;
 import com.inti.formation.shop.api.input.model.PriceInput;
+import com.inti.formation.shop.api.repository.model.Price;
 import com.inti.formation.shop.api.service.PriceService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.camel.builder.RouteBuilder;
@@ -35,9 +36,7 @@ public class FileRouteBuilder extends RouteBuilder {
                 .routeId("process_file")
                 .setHeader("uid")
                 .constant(UUID.randomUUID().toString())
-                .process(exchange -> {
-                    log.info("FileUid received "+ exchange.getIn().getHeader("uid", String.class) + " from file " + exchange.getIn().getHeader("CamelFileName") + " will be pushed in MongoDB");
-                }).process(exchange -> {
+                .process(exchange -> log.info("FileUid received "+ exchange.getIn().getHeader("uid", String.class) + " from file " + exchange.getIn().getHeader("CamelFileName") + " will be pushed in MongoDB")).process(exchange -> {
                     final String filename = exchange.getIn().getHeader("CamelFileNameOnly", String.class);
                 })
                 .from("direct:init_file")
@@ -56,8 +55,9 @@ public class FileRouteBuilder extends RouteBuilder {
                 .process(exchange -> {
                     final String body = exchange.getIn().getBody(String.class);
                     PriceInput price = new ObjectMapper().readValue(body, PriceInput.class);
-                    priceService.register(converter.convert(price));
-                    log.info("<<<<< Prix " + price.toString() + " >>>>>");
+                    Price priceMongo = converter.convert(price);
+                    priceService.register(priceMongo);
+                    log.info("<<<<< Prix " + priceMongo.toString() + " >>>>>");
                 }).end();
 
 
