@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: microservice-apiprice
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017,localhost:27017
+      database: dbprice
+server:
+  port: 8085
+
+
+camel:
+  springboot:
+    name: microservice-apiprice
+
+in:
+  directory: /home/alex/Documents/formation/talend/dossier_JSON/
+  file:
+    filemask: .*.[json|JSON]

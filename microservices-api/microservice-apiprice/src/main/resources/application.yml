@@ -24,11 +24,3 @@ kafka:
   max-in-flight-requests-per-connection: 5
   auto-register-schemas: false
 
-camel:
-  springboot:
-    name: microservice-apiprice
-
-in:
-  directory: /home/alex/Documents/formation/talend/dossier_JSON/
-  file:
-    filemask: .*.[json|JSON]

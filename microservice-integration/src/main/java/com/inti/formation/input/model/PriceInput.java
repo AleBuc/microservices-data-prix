@@ -1,7 +1,6 @@
-package com.inti.formation.shop.api.input.model;
+package com.inti.formation.input.model;
 
 import lombok.Data;
-import org.springframework.data.mongodb.core.index.Indexed;
 
 import java.util.Date;
 

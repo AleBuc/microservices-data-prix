@@ -1,19 +1,17 @@
-package com.inti.formation.shop.api.input.converter;
+package com.inti.formation.input.converter;
 
-import com.inti.formation.shop.api.input.model.PriceInput;
-import com.inti.formation.shop.api.repository.model.Price;
+import com.inti.formation.input.model.PriceInput;
+import com.inti.formation.input.mongo.PriceMongo;
 import org.springframework.stereotype.Component;
-
-import java.util.Date;
 
 @Component
 public class ConverterImpl implements Converter {
 
 
     @Override
-    public Price convert(PriceInput p) {
+    public PriceMongo convert(PriceInput p) {
 
-        Price price = new Price();
+        PriceMongo price = new PriceMongo();
         price.setIdPrix(p.getIdPrix());
         price.setMontant(p.getMontant());
         price.setActive(p.isActive());

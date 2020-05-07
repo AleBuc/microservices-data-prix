@@ -1,10 +1,10 @@
-package com.inti.formation.shop.api.input;
+package com.inti.formation.input.producer;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.inti.formation.shop.api.input.converter.Converter;
-import com.inti.formation.shop.api.input.model.PriceInput;
-import com.inti.formation.shop.api.repository.model.Price;
-import com.inti.formation.shop.api.service.PriceService;
+import com.inti.formation.input.converter.Converter;
+import com.inti.formation.input.model.PriceInput;
+import com.inti.formation.input.mongo.PriceMongo;
+import com.inti.formation.input.mongo.PriceMongoService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.model.dataformat.JsonLibrary;
@@ -22,8 +22,7 @@ public class FileRouteBuilder extends RouteBuilder {
     private Converter converter;
 
     @Autowired
-    @Qualifier("priceserv")
-    PriceService priceService;
+    PriceMongoService priceService;
 
     /**
      * Utilisation d'Apache Camel pour enregistrer les données d'un fichier JSON dans MongoDB
@@ -55,9 +54,9 @@ public class FileRouteBuilder extends RouteBuilder {
                 .process(exchange -> {
                     final String body = exchange.getIn().getBody(String.class);
                     PriceInput price = new ObjectMapper().readValue(body, PriceInput.class);
-                    Price priceMongo = converter.convert(price);
+                    PriceMongo priceMongo = converter.convert(price);
                     priceService.register(priceMongo);
-                    log.info("<<<<< Prix " + priceMongo.toString() + " >>>>>");
+                    log.debug("<<<<< Prix " + priceMongo.toString() + " >>>>>");
                 }).end();
 
 
