@@ -3,17 +3,16 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-<!--        <artifactId>microservices-data-prix</artifactId>-->
-<!--        <groupId>com.formation.data</groupId>-->
-<!--        <version>0.0.1-SNAPSHOT</version>-->
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.5.8.RELEASE </version>
+        <artifactId>microservices-data-prix</artifactId>
+        <groupId>com.formation.data</groupId>
+        <version>0.0.1-SNAPSHOT</version>
+<!--        <groupId>org.springframework.boot</groupId>-->
+<!--        <artifactId>spring-boot-starter-parent</artifactId>-->
+<!--        <version>1.5.8.RELEASE </version>-->
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>microservice-integration</artifactId>
-    <groupId>com.formation.data</groupId>
     <packaging>jar</packaging>
     <name>formation-apache-camel</name>
     <version>1.0.0-SNAPSHOT</version>
@@ -21,6 +20,8 @@
     <properties>
         <camel-kafka-version> 2.17.0 </camel-kafka-version>
         <scala-library-version> 2.12.6</scala-library-version>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>

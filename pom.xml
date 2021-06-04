@@ -9,10 +9,14 @@
     <version>0.0.1-SNAPSHOT</version>
 
     <properties>
+
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+
         <java.version>12</java.version>
         <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
         <jackson-annotations.version>2.10.2</jackson-annotations.version>
-        <os-maven.plugin.version>1.5.0.Final</os-maven.plugin.version>
+        <os-maven.plugin.version>2.9.0</os-maven.plugin.version>
         <junit-platform.version>1.1.0</junit-platform.version>
         <junit.version>5.2.0</junit.version>
         <spring-cloud.version>Hoxton.RELEASE</spring-cloud.version>
@@ -27,10 +31,10 @@
         <apache.commons.text.version>1.6</apache.commons.text.version>
         <commons-io.version>2.6</commons-io.version>
         <apache.commons.validator.version>1.6</apache.commons.validator.version>
-         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <docker.maven.version>0.26.0</docker.maven.version>
-         <build.helper.maven.plugin.version>3.0.0</build.helper.maven.plugin.version>
+        <build.helper.maven.plugin.version>3.0.0</build.helper.maven.plugin.version>
         <maven.surefire.plugin.version>2.22.0</maven.surefire.plugin.version>
         <maven.failsafe.plugin.version>2.22.0</maven.failsafe.plugin.version>
         <maven.release.plugin.version>2.5.3</maven.release.plugin.version>
@@ -45,10 +49,9 @@
         <spring-boot-admin.version>2.2.1</spring-boot-admin.version>
         <apache.commons.compress.version>1.19</apache.commons.compress.version>
         <jsoup.version>1.11.3</jsoup.version>
-        <google.guava.version>28.0-jre</google.guava.version>
         <javax.jms.version>2.0.1</javax.jms.version>
         <org.awaitility.version>4.0.2</org.awaitility.version>
-	</properties>
+    </properties>
 
     <modules>
         <module>microservices-utils</module>
@@ -61,11 +64,15 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+            </dependency>
+            <dependency>
                 <groupId>org.awaitility</groupId>
                 <artifactId>awaitility</artifactId>
                 <version>${org.awaitility.version}</version>
             </dependency>
-
 
 
             <dependency>
@@ -75,17 +82,10 @@
             </dependency>
 
 
-
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-autoconfigure-processor</artifactId>
                 <version>${spring-boot.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.google.guava</groupId>
-                <artifactId>guava</artifactId>
-                <version>${google.guava.version}</version>
             </dependency>
 
             <dependency>
@@ -173,7 +173,7 @@
             </dependency>
 
 
-           <!-- Kubernetes client -->
+            <!-- Kubernetes client -->
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-starter-kubernetes</artifactId>
@@ -231,7 +231,6 @@
     </dependencyManagement>
 
 
-
     <build>
 
         <resources>
@@ -255,7 +254,6 @@
         </resources>
 
         <plugins>
-
 
 
             <!-- Maven compiler -->
@@ -348,8 +346,6 @@
                     <artifactId>maven-release-plugin</artifactId>
                     <version>${maven.release.plugin.version}</version>
                 </plugin>
-
-
 
 
             </plugins>
