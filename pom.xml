@@ -48,7 +48,7 @@
         <os-maven.plugin.version>1.5.0.Final</os-maven.plugin.version>
         <spring-boot-admin.version>2.2.1</spring-boot-admin.version>
         <apache.commons.compress.version>1.19</apache.commons.compress.version>
-        <jsoup.version>1.11.3</jsoup.version>
+        <jsoup.version>1.14.2</jsoup.version>
         <javax.jms.version>2.0.1</javax.jms.version>
         <org.awaitility.version>4.0.2</org.awaitility.version>
     </properties>

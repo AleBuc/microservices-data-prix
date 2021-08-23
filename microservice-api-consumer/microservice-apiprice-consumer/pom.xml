@@ -15,7 +15,7 @@
     <properties>
         <microservices-common-libs-version>0.0.1-SNAPSHOT</microservices-common-libs-version>
         <microservices-utils-version>0.0.1-SNAPSHOT</microservices-utils-version>
-        <jsoup-version>1.11.3</jsoup-version>
+        <jsoup-version>1.14.2</jsoup-version>
         <spring-kafka-version>2.3.6.RELEASE</spring-kafka-version>
         <slf4j-api-version>1.7.30</slf4j-api-version>
     </properties>
