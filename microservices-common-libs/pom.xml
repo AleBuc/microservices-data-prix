@@ -9,7 +9,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <properties>
-        <jackson-annotations.version>2.12.3</jackson-annotations.version>
+        <jackson-annotations.version>2.12.6.1</jackson-annotations.version>
     </properties>
 
     <artifactId>microservices-common-libs</artifactId>
