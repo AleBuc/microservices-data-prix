@@ -34,7 +34,7 @@
         <cc-utils.version>0.0.1-SNAPSHOT</cc-utils.version>
         <rdo-web-client> 0.0.1</rdo-web-client>
         <kafka-clients>1.1.0</kafka-clients>
-        <json.version>20140107</json.version>
+        <json.version>20231013</json.version>
 
     </properties>
 
